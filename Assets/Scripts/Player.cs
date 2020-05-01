@@ -8,10 +8,13 @@ public class Player : MonoBehaviour
     public float jumpSpeed = 300.0f;
     public float jumpMaxTime = 0.1f;
 
+    public int maxJumpCount = 1;
+
     public Transform groundCheck;
     public LayerMask GroundLayers;
 
     Rigidbody2D rb;
+    int jumpsAvailable;
 
     float jumpTime;
 
@@ -19,6 +22,8 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        jumpsAvailable = maxJumpCount;
     }
 
     // Update is called once per frame
@@ -33,17 +38,23 @@ public class Player : MonoBehaviour
 
 
 
-        Collider2D groundCollision = Physics2D.OverlapCircle(groundCheck.position, 5, GroundLayers);
+        Collider2D groundCollision = Physics2D.OverlapCircle(groundCheck.position, 1, GroundLayers);
 
         bool oneGround = groundCollision != null;
+        if ((oneGround) && (currentVelocity.y <= 0.001))
+        {
+            jumpsAvailable = maxJumpCount;
+        }
 
         // Salto
-        if ((Input.GetButtonDown("Jump")) && (oneGround))
+        if ((Input.GetButtonDown("Jump")) && (jumpsAvailable > 0))
         {
             currentVelocity.y = jumpSpeed;
             rb.gravityScale = 0.0f;
 
             jumpTime = Time.time;
+
+            jumpsAvailable--;
         }
         else if ((Input.GetButtonDown("Jump")) && ((Time.time - jumpTime) < jumpMaxTime))
         {
@@ -56,5 +67,23 @@ public class Player : MonoBehaviour
 
         rb.velocity = currentVelocity;
 
+        if (currentVelocity.x < -0.5f)
+        {
+            if (transform.right.x > 0)
+            {
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+        }
+        else if (currentVelocity.x > 0.5f)
+        {
+            transform.rotation = Quaternion.identity;
+        }
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(groundCheck.position, 1);
     }
 }
