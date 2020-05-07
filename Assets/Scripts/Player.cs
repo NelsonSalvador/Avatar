@@ -66,17 +66,16 @@ public class Player : MonoBehaviour
         }
 
         rb.velocity = currentVelocity;
-
+        
         if (currentVelocity.x < -0.5f)
         {
             if (transform.right.x > 0)
-            {
                 transform.rotation = Quaternion.Euler(0, 180, 0);
-            }
         }
         else if (currentVelocity.x > 0.5f)
         {
-            transform.rotation = Quaternion.identity;
+            if (transform.right.x < 0)
+                transform.rotation = Quaternion.identity;
         }
 
     }
