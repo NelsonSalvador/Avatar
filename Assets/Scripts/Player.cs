@@ -4,17 +4,18 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float maxSpeed = 50.0f;
-    public float jumpSpeed = 300.0f;
-    public float jumpMaxTime = 0.1f;
+    public float    maxSpeed = 50.0f;
+    public float    jumpSpeed = 300.0f;
+    public float    jumpMaxTime = 0.1f;
 
-    public int maxJumpCount = 1;
+    public int      maxJumpCount = 1;
 
     public Transform groundCheck;
     public LayerMask GroundLayers;
 
-    Rigidbody2D rb;
-    int jumpsAvailable;
+    Rigidbody2D     rb;
+    Animator        anim;
+    int             jumpsAvailable;
 
     float jumpTime;
 
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
 
         jumpsAvailable = maxJumpCount;
     }
@@ -66,6 +68,8 @@ public class Player : MonoBehaviour
         }
 
         rb.velocity = currentVelocity;
+
+        anim.SetFloat("AbsVelX", Mathf.Abs(currentVelocity.x));
         
         if (currentVelocity.x < -0.5f)
         {
