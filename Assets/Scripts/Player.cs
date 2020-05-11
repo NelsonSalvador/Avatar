@@ -71,12 +71,12 @@ public class Player : MonoBehaviour
 
         anim.SetFloat("AbsVelX", Mathf.Abs(currentVelocity.x));
         
-        if (currentVelocity.x < -0.5f)
+        if (currentVelocity.x < -0.1f)
         {
             if (transform.right.x > 0)
                 transform.rotation = Quaternion.Euler(0, 180, 0);
         }
-        else if (currentVelocity.x > 0.5f)
+        else if (currentVelocity.x > 0.1f)
         {
             if (transform.right.x < 0)
                 transform.rotation = Quaternion.identity;
