@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - MovingPlataform
+  - CameraTriger
+  - Cinem
   layers:
   - Default
   - TransparentFX
@@ -15,10 +17,10 @@ TagManager:
   - 
   - 
   - Ground
-  - Leaf
-  - Leaf2
-  - Leaf3
-  - Leaf4
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

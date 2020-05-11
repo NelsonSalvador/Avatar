@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class LeafRotation : MonoBehaviour
 {
-    public Transform groundCheck;
     public float speed;
     public float angle = 50;
     public bool reversedObject = false;
-    public LayerMask GroundLayers;
 
     Quaternion rot;
     float angleReversed;
@@ -26,23 +24,16 @@ public class LeafRotation : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Collider2D groundCollision = Physics2D.OverlapCircle(groundCheck.position, 1, GroundLayers);
+        
+    }
 
-        bool oneGround = groundCollision != null;
-        if ((oneGround))
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.tag == "Player")
         {
-            rotate = true;
             
-        }
-        else
-        {
-
-        }
-
-        if (rotate == true)
-        {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, speed * Time.deltaTime);
         }
     }

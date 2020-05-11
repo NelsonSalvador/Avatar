@@ -9,33 +9,43 @@ public class CameraController : MonoBehaviour
     [SerializeField] float feedBackLoopFactor = 0.1f;
     [SerializeField] Rect cameraTrap;
 
+    private Camera myCamera = null;
+
+    private bool cinematic = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        myCamera = GetComponent<Camera>();
+        myCamera.orthographicSize = 100;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 tragetPos = followtarget.position + offset;
-        tragetPos.z = transform.position.z;
+        if (cinematic == false)
+        {
+            if (myCamera.orthographicSize < 190)
+                myCamera.orthographicSize += 1;
 
-        Rect rect = GetWorldRect();
+            Vector3 tragetPos = followtarget.position + offset;
+            tragetPos.z = transform.position.z;
 
-        if (tragetPos.x < rect.xMin) rect.xMin = tragetPos.x;
-        else if (tragetPos.x > rect.xMax) rect.xMax = tragetPos.x;
+            Rect rect = GetWorldRect();
 
-        if (tragetPos.y < rect.yMin) rect.yMin = tragetPos.y;
-        else if (tragetPos.y > rect.yMax) rect.yMax = tragetPos.y;
+            if (tragetPos.x < rect.xMin) rect.xMin = tragetPos.x;
+            else if (tragetPos.x > rect.xMax) rect.xMax = tragetPos.x;
 
-        Vector3 movePosition = rect.center;
-        movePosition.z = transform.position.z;
+            if (tragetPos.y < rect.yMin) rect.yMin = tragetPos.y;
+            else if (tragetPos.y > rect.yMax) rect.yMax = tragetPos.y;
 
-        Vector3 delta = movePosition - transform.position;
+            Vector3 movePosition = rect.center;
+            movePosition.z = transform.position.z;
 
-        transform.position = transform.position + delta * feedBackLoopFactor;
+            Vector3 delta = movePosition - transform.position;
+
+            transform.position = transform.position + delta * feedBackLoopFactor;
+        }
     }
     Rect GetWorldRect()
     {
