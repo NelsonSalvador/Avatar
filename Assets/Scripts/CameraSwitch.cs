@@ -9,6 +9,7 @@ public class CameraSwitch : MonoBehaviour
     public GameObject player;
     public Vector3 nextPos;
     public float speed = 50.0f;
+    public bool lockPos = true;
 
     bool reverse = false;
     bool count = false;
@@ -30,13 +31,14 @@ public class CameraSwitch : MonoBehaviour
         if ((reverse == false) && (Camera1.active == true))
         {
             Camera1.transform.position = Vector3.MoveTowards(Camera1.transform.position, nextPos, speed * Time.deltaTime);
-            if (Camera1.transform.position == nextPos)
+            if ((Camera1.transform.position == nextPos) && (lockPos == true))
+            {
                 reverse = true;
+            }
         }
         else if ((reverse == true) && (Camera1.active == true))
         {
-            Camera1.transform.position = Vector3.MoveTowards(Camera1.transform.position, MainCamera.transform.position, (speed * Time.deltaTime) * 4);
-            
+                Camera1.transform.position = Vector3.MoveTowards(Camera1.transform.position, MainCamera.transform.position, (speed * Time.deltaTime) * 4);
         }
         if ((Camera1.transform.position == MainCamera.transform.position) && (reverse == true))
         {
@@ -54,12 +56,30 @@ public class CameraSwitch : MonoBehaviour
             
             if (count == false)
             {
-                player.canMove = false;
+                if (lockPos == true)
+                {
+                    player.canMove = false;
+                }
+                
+                reverse = false;
+
+                Camera1.transform.position = MainCamera.transform.position;
                 Camera1.SetActive(true);
                 MainCamera.SetActive(false);
-                Camera1.transform.position = MainCamera.transform.position;
+                
             }
-            count = true;
+
+            if (lockPos == true)
+                count = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            reverse = true;
+            if (lockPos == false)
+                MainCamera.transform.position = Camera1.transform.position;
         }
     }
 }
