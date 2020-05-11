@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public float    maxSpeed = 50.0f;
     public float    jumpSpeed = 300.0f;
     public float    jumpMaxTime = 0.1f;
+    public bool canMove = true;
 
     public int      maxJumpCount = 1;
 
@@ -36,7 +37,8 @@ public class Player : MonoBehaviour
 
         Vector2 currentVelocity = rb.velocity;
 
-        currentVelocity = new Vector2(maxSpeed * hAxis, currentVelocity.y);
+        if (canMove == true)
+            currentVelocity = new Vector2(maxSpeed * hAxis, currentVelocity.y);
 
 
 
@@ -49,7 +51,7 @@ public class Player : MonoBehaviour
         }
 
         // Salto
-        if ((Input.GetButtonDown("Jump")) && (jumpsAvailable > 0))
+        if ((Input.GetButtonDown("Jump")) && (jumpsAvailable > 0) && (canMove == true))
         {
             currentVelocity.y = jumpSpeed;
             rb.gravityScale = 0.0f;
