@@ -11,6 +11,7 @@ public class LeafRotation : MonoBehaviour
     Quaternion rot;
     float angleReversed;
     bool rotate = false;
+    float acelaration;
 
     // Start is called before the first frame update
     void Start()
@@ -20,21 +21,38 @@ public class LeafRotation : MonoBehaviour
         else
             angleReversed = 180;
 
+        acelaration = speed;
+
         rot = Quaternion.Euler(0, angleReversed, angle);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        
+        if (rotate == true)
+        {
+            speed += 2;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, speed * Time.deltaTime);
+        }
+        else if (rotate == false)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(0, angleReversed, 0), 20 * Time.deltaTime);
+        }
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, rot, speed * Time.deltaTime);
+            speed = acelaration;
+            rotate = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            rotate = false;
         }
     }
 }

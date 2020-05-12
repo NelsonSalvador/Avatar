@@ -16,7 +16,7 @@ public class PlataformMovment : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(transform.position == new Vector3(0, 0, 0))
         {

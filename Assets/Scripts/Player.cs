@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 
     public int      maxJumpCount = 1;
 
+
     public Transform groundCheck;
     public LayerMask GroundLayers;
 
@@ -60,14 +61,17 @@ public class Player : MonoBehaviour
 
             jumpsAvailable--;
         }
-        else if ((Input.GetButtonDown("Jump")) && ((Time.time - jumpTime) < jumpMaxTime))
+        else if (((Time.time - jumpTime) > jumpMaxTime) && (oneGround == false))
         {
-            
+            if (rb.gravityScale < 10.0f)
+                rb.gravityScale += 0.2f;
         }
         else
         {
             rb.gravityScale = 5.0f;
         }
+
+        
 
         rb.velocity = currentVelocity;
 
@@ -91,4 +95,16 @@ public class Player : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(groundCheck.position, 1);
     }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "MovingPlataform")
+            this.transform.parent = collision.transform;
+    }
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "MovingPlataform")
+            this.transform.parent = null;
+    }
+    
 }
