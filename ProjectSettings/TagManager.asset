@@ -9,6 +9,7 @@ TagManager:
   - Cinem
   - Leaf
   - Poison
+  - Enemy
   layers:
   - Default
   - TransparentFX

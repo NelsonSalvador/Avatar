@@ -21,11 +21,20 @@ public class Player : MonoBehaviour
 
     float jumpTime;
 
+    CapsuleCollider2D capsule;
+    BoxCollider2D box;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        capsule = GetComponent<CapsuleCollider2D>();
+        box = GetComponent<BoxCollider2D>();
+
+        capsule.enabled = true;
+        box.enabled = false;
+
 
         jumpsAvailable = maxJumpCount;
     }
@@ -69,6 +78,18 @@ public class Player : MonoBehaviour
         else
         {
             rb.gravityScale = 5.0f;
+        }
+
+        // Troca de Coliders
+        if (oneGround == false)
+        {
+            capsule.enabled = false;
+            box.enabled = true;
+        }
+        else if (oneGround == true)
+        {
+            capsule.enabled = true;
+            box.enabled = false;
         }
 
         

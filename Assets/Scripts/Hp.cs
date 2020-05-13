@@ -30,7 +30,6 @@ public class Hp : MonoBehaviour
         if ( (oneGround == false) )
         {
             jumpTime += 1.0f;
-            
         }
         else if (oneGround == true)
         {
@@ -68,6 +67,14 @@ public class Hp : MonoBehaviour
         if (other.tag == "Poison")
         {
             hp = hp - 50;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            hp = hp - 20;
         }
     }
 }
