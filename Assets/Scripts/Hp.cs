@@ -9,15 +9,17 @@ public class Hp : MonoBehaviour
     public Transform groundCheck;
     public LayerMask GroundLayers;
     public GameObject MainCamera;
-
+    public GameObject Text;
+    Text text;
     public float AirTimeDmgStart = 50.0f;
- 
 
+    float time;
     public float jumpTime;
     // Start is called before the first frame update
     void Start()
     {
-        
+        text = Text.GetComponent<Text>();
+        text.enabled = false;
     }
 
     // Update is called once per frame
@@ -26,6 +28,17 @@ public class Hp : MonoBehaviour
         Collider2D groundCollision = Physics2D.OverlapCircle(groundCheck.position, 1, GroundLayers);
 
         bool oneGround = groundCollision != null;
+
+        if (text.enabled == true)
+        {
+            time += 1.0f;
+            if (time == 30.0f)
+            {
+                text.enabled = false;
+                time = 0.0f;
+            }
+            
+        }
 
         if ( (oneGround == false) )
         {
@@ -36,6 +49,8 @@ public class Hp : MonoBehaviour
             if (jumpTime > AirTimeDmgStart)
             {
                 hp = hp - (0.2f * jumpTime);
+                text.text = $"-{0.2f * jumpTime}";
+                text.enabled = true;
             }
             jumpTime = 0;
         }
@@ -62,19 +77,21 @@ public class Hp : MonoBehaviour
             jumpTime = 0;
         }
     }
-    private void OnTriggerEnter2D(Collider2D other)
+   /* private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Poison")
         {
             hp = hp - 50;
         }
-    }
+    }*/
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
             hp = hp - 20;
+            text.text = "-10";
+            text.enabled = true;
         }
     }
 }

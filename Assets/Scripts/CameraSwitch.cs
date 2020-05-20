@@ -50,7 +50,7 @@ public class CameraSwitch : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" )
         {
             Player player = other.GetComponent<Player>();
             

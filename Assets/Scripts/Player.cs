@@ -32,8 +32,8 @@ public class Player : MonoBehaviour
         capsule = GetComponent<CapsuleCollider2D>();
         box = GetComponent<BoxCollider2D>();
 
-        capsule.enabled = true;
-        box.enabled = false;
+        capsule.isTrigger = false;
+        box.isTrigger = true;
 
 
         jumpsAvailable = maxJumpCount;
@@ -83,16 +83,16 @@ public class Player : MonoBehaviour
         // Troca de Coliders
         if (oneGround == false)
         {
-            capsule.enabled = false;
-            box.enabled = true;
+            capsule.isTrigger = true;
+            box.isTrigger = false;
         }
         else if (oneGround == true)
         {
-            capsule.enabled = true;
-            box.enabled = false;
+            capsule.isTrigger = false;
+            box.isTrigger = true;
         }
 
-        
+
 
         rb.velocity = currentVelocity;
 
