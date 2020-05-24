@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     int             jumpsAvailable;
 
     float jumpTime;
+    bool oneGround;
 
     CapsuleCollider2D capsule;
     BoxCollider2D box;
@@ -54,7 +55,7 @@ public class Player : MonoBehaviour
 
         Collider2D groundCollision = Physics2D.OverlapCircle(groundCheck.position, 1, GroundLayers);
 
-        bool oneGround = groundCollision != null;
+        oneGround = groundCollision != null;
         if ((oneGround) && (currentVelocity.y <= 0.001))
         {
             jumpsAvailable = maxJumpCount;
@@ -69,6 +70,7 @@ public class Player : MonoBehaviour
             jumpTime = Time.time;
 
             jumpsAvailable--;
+
         }
         else if (((Time.time - jumpTime) > jumpMaxTime) && (oneGround == false))
         {
@@ -97,13 +99,15 @@ public class Player : MonoBehaviour
         rb.velocity = currentVelocity;
 
         anim.SetFloat("AbsVelX", Mathf.Abs(currentVelocity.x));
+        anim.SetFloat("velY", currentVelocity.y);
+        anim.SetBool("OnGround", oneGround);
         
-        if (currentVelocity.x < -0.1f)
+        if (currentVelocity.x < -0.01f)
         {
             if (transform.right.x > 0)
                 transform.rotation = Quaternion.Euler(0, 180, 0);
         }
-        else if (currentVelocity.x > 0.1f)
+        else if (currentVelocity.x > 0.01f)
         {
             if (transform.right.x < 0)
                 transform.rotation = Quaternion.identity;
