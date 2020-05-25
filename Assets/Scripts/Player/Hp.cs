@@ -6,15 +6,16 @@ using UnityEngine.UI;
 public class Hp : MonoBehaviour
 {
     public float hp = 100;
+    public float heightdmgStart = 300;
     public Transform groundCheck;
     public LayerMask GroundLayers;
     public GameObject MainCamera;
     public GameObject Text;
     Text text;
-    public float AirTimeDmgStart = 50.0f;
 
     float time;
-    public float jumpTime;
+
+    public float inicialY;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +30,19 @@ public class Hp : MonoBehaviour
 
         bool oneGround = groundCollision != null;
 
+        if ((oneGround == true) && (inicialY > transform.position.y + heightdmgStart))
+        {
+            hp = hp - (10);
+            text.text = $"-{10}";
+            text.enabled = true;
+            inicialY = transform.position.y;
+        }
+        else if (oneGround == true)
+        {
+            inicialY = transform.position.y;
+        }
+
+
         if (text.enabled == true)
         {
             time += 1.0f;
@@ -38,27 +52,6 @@ public class Hp : MonoBehaviour
                 time = 0.0f;
             }
             
-        }
-
-        if ( (oneGround == false) )
-        {
-            jumpTime += 1.0f;
-        }
-        else if (oneGround == true)
-        {
-            if (jumpTime > AirTimeDmgStart)
-            {
-                hp = hp - (0.2f * jumpTime);
-                text.text = $"-{0.2f * jumpTime}";
-                text.enabled = true;
-            }
-            jumpTime = 0;
-        }
-
-        if (jumpTime == 100.0f)
-        {
-            hp = 0;
-            jumpTime = 0;
         }
 
         if (hp <= 1.0f)
@@ -74,7 +67,7 @@ public class Hp : MonoBehaviour
     {
         if (other.tag == "Leaf")
         {
-            jumpTime = 0;
+            inicialY = transform.position.y;
         }
     }
    /* private void OnTriggerEnter2D(Collider2D other)
