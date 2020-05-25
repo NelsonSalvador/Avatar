@@ -71,6 +71,8 @@ public class Player : MonoBehaviour
 
             jumpsAvailable--;
 
+            FindObjectOfType<AudioManager>().Play("Jump");
+
         }
         else if (((Time.time - jumpTime) > jumpMaxTime) && (oneGround == false))
         {

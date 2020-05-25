@@ -51,7 +51,6 @@ public class Hp : MonoBehaviour
                 text.enabled = false;
                 time = 0.0f;
             }
-
         }
 
         if (hp <= 1.0f)
