@@ -51,7 +51,6 @@ public class Hp : MonoBehaviour
                 text.enabled = false;
                 time = 0.0f;
             }
-            
         }
 
         if (hp <= 1.0f)
@@ -70,13 +69,13 @@ public class Hp : MonoBehaviour
             inicialY = transform.position.y;
         }
     }
-   /* private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Poison")
-        {
-            hp = hp - 50;
-        }
-    }*/
+    /* private void OnTriggerEnter2D(Collider2D other)
+     {
+         if (other.tag == "Poison")
+         {
+             hp = hp - 50;
+         }
+     }*/
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
