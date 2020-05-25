@@ -6,13 +6,29 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public GameObject Player;
+
+    public UImanager ui;
+
     public Transform groundCheck;
     public LayerMask GroundLayers;
     public float Speed = 20;
 
+
     bool follow = false;
     float AISpeed;
     Rigidbody2D rb;
+
+    public float health = 100.0f;
+
+    public void TakeDamge (float damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+            ui.meter = true;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
