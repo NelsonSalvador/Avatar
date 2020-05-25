@@ -18,6 +18,7 @@ public class Shoot : MonoBehaviour
         if(Input.GetButtonDown("Fire1"))
         {
             shoot();
+            FindObjectOfType<AudioManager>().Play("Shoot");
         }
     }
     void shoot ()

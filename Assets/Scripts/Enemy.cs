@@ -23,10 +23,13 @@ public class Enemy : MonoBehaviour
     public void TakeDamge (float damage)
     {
         health -= damage;
+        FindObjectOfType<AudioManager>().Play("Hit");
+
         if (health <= 0)
         {
             Destroy(gameObject);
             ui.meter = true;
+            FindObjectOfType<AudioManager>().Play("EnemyKill");
         }
     }
     // Start is called before the first frame update
