@@ -8,15 +8,21 @@ public class Enemy : MonoBehaviour
     public GameObject Player;
 
     public UImanager ui;
+    public bool sleping = false;
+    [SerializeField] LayerMask layer;
 
     public Transform groundCheck;
     public LayerMask GroundLayers;
     public float Speed = 20;
 
+    Animator anim;
+
 
     bool follow = false;
     float AISpeed;
     Rigidbody2D rb;
+
+    ContactFilter2D layerCol;
 
     public float health = 100.0f;
 
@@ -36,6 +42,11 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
+
+        layerCol = new ContactFilter2D();
+        layerCol.SetLayerMask(layer);
+
         AISpeed = Speed;
     }
 
@@ -53,7 +64,7 @@ public class Enemy : MonoBehaviour
             AISpeed = -AISpeed;
         }
 
-        if (follow == false)
+        if (follow == false && sleping == false)
             currentVelocity = new Vector2( (AISpeed) / 2, currentVelocity.y);
 
         rb.velocity = currentVelocity;
@@ -75,9 +86,10 @@ public class Enemy : MonoBehaviour
 
         if (follow == true && oneWall == false)
         {
+            anim.SetFloat("AbsVelX", Mathf.Abs(10));
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(Player.transform.position.x, 
                 transform.position.y, 0), Speed * Time.deltaTime);
-            
+
             if (Player.transform.position.x < transform.position.x)
             {
                 transform.rotation = Quaternion.Euler(0, 180, 0);
@@ -87,6 +99,11 @@ public class Enemy : MonoBehaviour
                 transform.rotation = Quaternion.identity;
             }
         }
+        else
+        {
+            anim.SetFloat("AbsVelX", Mathf.Abs(currentVelocity.x));
+        }
+
     }
 
 
