@@ -230,7 +230,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &13076618
 Transform:
   m_ObjectHideFlags: 0
@@ -1196,7 +1196,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainCamera: {fileID: 519420028}
-  Camera1: {fileID: 767529059}
   player: {fileID: 1908064258}
   nextPos: {x: 1875, y: -700, z: -10}
   speed: 300
@@ -1578,7 +1577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followtarget: {fileID: 1908064262}
-  offset: {x: 75, y: 0.64, z: 0}
+  offset: {x: -10.26, y: 70.66, z: 0}
   feedBackLoopFactor: 1
   cameraTrap:
     serializedVersion: 2
@@ -1586,6 +1585,7 @@ MonoBehaviour:
     y: 0
     width: 61.05
     height: 110.2
+  cinematic: 0
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -54525,7 +54525,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainCamera: {fileID: 519420028}
-  Camera1: {fileID: 1021066162}
   player: {fileID: 1908064258}
   nextPos: {x: -34, y: 76, z: -10}
   speed: 300
@@ -55867,7 +55866,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908064258}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -698, y: 225, z: 0}
+  m_LocalPosition: {x: -716, y: 220, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1734326109}
@@ -55928,7 +55927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
-  heightdmgStart: 100
+  heightdmgStart: 150
   groundCheck: {fileID: 1734326109}
   GroundLayers:
     serializedVersion: 2
@@ -56212,7 +56211,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainCamera: {fileID: 519420028}
-  Camera1: {fileID: 1842066203}
   player: {fileID: 1908064258}
   nextPos: {x: 1280, y: -1410, z: -10}
   speed: 300

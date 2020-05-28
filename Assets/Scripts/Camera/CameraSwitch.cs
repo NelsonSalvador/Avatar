@@ -5,9 +5,9 @@ using UnityEngine;
 public class CameraSwitch : MonoBehaviour
 {
     public GameObject MainCamera;
-    public GameObject Camera1;
     public GameObject player;
     public Vector3 nextPos;
+
     public float speed = 50.0f;
     public bool lockPos = true;
 
@@ -15,36 +15,39 @@ public class CameraSwitch : MonoBehaviour
     bool count = false;
 
     Player p;
+    Vector3 EnterPos;
+    CameraController a;
 
     // Start is called before the first frame update
     void Start()
     {
-        Camera1.SetActive(false);
+        //Camera1.SetActive(false);
         MainCamera.SetActive(true);
         p = player.GetComponent<Player>();
+        a = MainCamera.GetComponent<CameraController>();
         p.canMove = true;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if ((reverse == false) && (Camera1.active == true))
+        if ((reverse == false))
         {
-            Camera1.transform.position = Vector3.MoveTowards(Camera1.transform.position, nextPos, speed * Time.deltaTime);
-            if ((Camera1.transform.position == nextPos) && (lockPos == true))
+            MainCamera.transform.position = Vector3.MoveTowards(MainCamera.transform.position, nextPos, speed * Time.deltaTime);
+            if ((MainCamera.transform.position == nextPos) && (lockPos == true))
             {
                 reverse = true;
             }
         }
-        else if ((reverse == true) && (Camera1.active == true))
+        else if ((reverse == true))
         {
-                Camera1.transform.position = Vector3.MoveTowards(Camera1.transform.position, MainCamera.transform.position, (speed * Time.deltaTime) * 4);
+            MainCamera.transform.position = Vector3.MoveTowards(MainCamera.transform.position, EnterPos, (speed * Time.deltaTime) * 4);
         }
-        if ((Camera1.transform.position == MainCamera.transform.position) && (reverse == true))
+        if ((MainCamera.transform.position == EnterPos) && (reverse == true))
         {
-            
-            Camera1.SetActive(false);
-            MainCamera.SetActive(true);
+
+            //Camera1.SetActive(false);
+            //MainCamera.SetActive(true);
             p.canMove = true;
         }
     }
@@ -63,9 +66,14 @@ public class CameraSwitch : MonoBehaviour
                 
                 reverse = false;
 
-                Camera1.transform.position = MainCamera.transform.position;
-                Camera1.SetActive(true);
-                MainCamera.SetActive(false);
+                EnterPos = MainCamera.transform.position;
+
+                
+                a.cinematic = true;
+
+                //Camera1.transform.position = MainCamera.transform.position;
+                //Camera1.SetActive(true);
+                //MainCamera.SetActive(false);
                 
             }
 
@@ -78,8 +86,10 @@ public class CameraSwitch : MonoBehaviour
         if (other.tag == "Player")
         {
             reverse = true;
-            if (lockPos == false)
-                MainCamera.transform.position = Camera1.transform.position;
+            a.cinematic = false;
+
+            // if (lockPos == false)
+            //MainCamera.transform.position = Camera1.transform.position;
         }
     }
 }

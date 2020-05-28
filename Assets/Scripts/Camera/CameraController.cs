@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
 
     private Camera myCamera = null;
 
-    private bool cinematic = false;
+    public bool cinematic = false;
 
     // Start is called before the first frame update
     void Start()
