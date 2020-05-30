@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Hp : MonoBehaviour
 {
@@ -11,8 +12,13 @@ public class Hp : MonoBehaviour
     public Transform groundCheck;
     public LayerMask GroundLayers;
     public GameObject MainCamera;
-    public GameObject Text;
+    public GameObject TextDmg;
+    public GameObject TextDeath;
+
+    public GameObject repawnMenu;
     Text text;
+
+    TextMeshProUGUI TextMesh;
 
     float time;
 
@@ -20,8 +26,10 @@ public class Hp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        text = Text.GetComponent<Text>();
+        text = TextDmg.GetComponent<Text>();
+        TextMesh = TextDeath.GetComponent<TextMeshProUGUI>();
         text.enabled = false;
+        repawnMenu.SetActive(false);
     }
 
     // Update is called once per frame
@@ -54,9 +62,14 @@ public class Hp : MonoBehaviour
             }
         }
 
+        // Respawn menu (Player Dies)
         if (hp <= 1.0f)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            repawnMenu.SetActive(true);
+            gameObject.SetActive(false);
+
+            TextDeath.SetActive(true);
+            TextMesh.text = "You Died !!!";
         }
 
 
@@ -68,13 +81,7 @@ public class Hp : MonoBehaviour
             inicialY = transform.position.y;
         }
     }
-    /* private void OnTriggerEnter2D(Collider2D other)
-     {
-         if (other.tag == "Poison")
-         {
-             hp = hp - 50;
-         }
-     }*/
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
