@@ -80,10 +80,6 @@ public class Enemy : MonoBehaviour
             
         }
 
-        
-
-
-
         if (follow == true && oneWall == false && sleping == false)
         {
             anim.SetFloat("AbsVelX", Mathf.Abs(10));

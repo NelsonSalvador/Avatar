@@ -1891,7 +1891,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   Speed: 70
-  health: 100
+  health: 50
 --- !u!61 &510723007
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -32704,7 +32704,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   Speed: 70
-  health: 100
+  health: 50
 --- !u!61 &761036466
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -55157,7 +55157,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   Speed: 70
-  health: 100
+  health: 50
 --- !u!61 &976683871
 BoxCollider2D:
   m_ObjectHideFlags: 0

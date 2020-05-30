@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
         if (canMove == true)
             currentVelocity = new Vector2(maxSpeed * hAxis, currentVelocity.y);
 
-
+        
 
         Collider2D groundCollision = Physics2D.OverlapCircle(groundCheck.position, 1, GroundLayers);
 
