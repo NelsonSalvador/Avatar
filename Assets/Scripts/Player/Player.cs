@@ -65,23 +65,12 @@ public class Player : MonoBehaviour
         if ((Input.GetButtonDown("Jump")) && (jumpsAvailable > 0) && (canMove == true))
         {
             currentVelocity.y = jumpSpeed;
-            rb.gravityScale = 0.0f;
-
-            jumpTime = Time.time;
+            rb.gravityScale = 5.0f;
 
             jumpsAvailable--;
 
             FindObjectOfType<AudioManager>().Play("Jump");
 
-        }
-        else if (((Time.time - jumpTime) > jumpMaxTime) && (oneGround == false))
-        {
-            if (rb.gravityScale < 10.0f)
-                rb.gravityScale += 0.2f;
-        }
-        else
-        {
-            rb.gravityScale = 5.0f;
         }
 
         // Troca de Coliders
@@ -115,6 +104,24 @@ public class Player : MonoBehaviour
                 transform.rotation = Quaternion.identity;
         }
 
+    }
+
+    private void FixedUpdate()
+    {
+        Collider2D groundCollision = Physics2D.OverlapCircle(groundCheck.position, 1, GroundLayers);
+
+        oneGround = groundCollision != null;
+
+        if ((oneGround == false))
+        {
+            if (rb.gravityScale < 10.0f)
+                rb.gravityScale += 0.2f;
+            Debug.Log("Entrou");
+        }
+        else
+        {
+            rb.gravityScale = 5.0f;
+        }
     }
 
     private void OnDrawGizmos()

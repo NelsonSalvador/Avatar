@@ -57285,8 +57285,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 200
-  jumpSpeed: 600
-  jumpMaxTime: 0.1
+  jumpSpeed: 550
+  jumpMaxTime: 0.02
   canMove: 1
   maxJumpCount: 1
   groundCheck: {fileID: 1734326109}
