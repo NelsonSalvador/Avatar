@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class UImanager : MonoBehaviour
 {
@@ -28,7 +30,12 @@ public class UImanager : MonoBehaviour
         {
             killingMeter[imgDel].enabled = false;
             imgDel = imgDel - 1;
-            meter = false; 
+            meter = false;
+            if (imgDel + 1 == 0)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
+        
     }
 }

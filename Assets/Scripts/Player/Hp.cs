@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Hp : MonoBehaviour
 {
@@ -55,9 +56,7 @@ public class Hp : MonoBehaviour
 
         if (hp <= 1.0f)
         {
-            transform.position = new Vector3(-723, 187, 0);
-            MainCamera.transform.position = new Vector3(-670, 127, -10);
-            hp = 100;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
 

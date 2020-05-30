@@ -2,25 +2,34 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using System.Collections;
 
 public class Arrow : MonoBehaviour
 {
     public float speed = 20.0f;
     public Rigidbody2D rb;
-    public float dmg = 25.0f;
+    public float dmg = 50.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         rb.velocity = transform.right * speed;
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    IEnumerator destroy(float time)
     {
-        Enemy enemy = collision.GetComponent<Enemy>();
-        if (enemy != null)
+        yield return new WaitForSeconds(time);
+        Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
         {
-            enemy.TakeDamge(dmg / 2);
+            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+            enemy.TakeDamge(dmg);
+            StartCoroutine(destroy(0.1f));
         }
+        else
+            StartCoroutine(destroy(0.5f));
     }
 }

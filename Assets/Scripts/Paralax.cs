@@ -5,6 +5,7 @@ using UnityEngine;
 public class Paralax : MonoBehaviour
 {
     public float paralaxEfectMult = .5f;
+    public GameObject Player;
 
     private Transform cameraTransform;
     private Vector3 lastCameraPos;
@@ -16,6 +17,7 @@ public class Paralax : MonoBehaviour
 
     private void LateUpdate()
     {
+
         Vector3 deltaMov = cameraTransform.position - lastCameraPos;
 
 

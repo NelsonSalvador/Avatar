@@ -84,7 +84,7 @@ public class Enemy : MonoBehaviour
 
 
 
-        if (follow == true && oneWall == false)
+        if (follow == true && oneWall == false && sleping == false)
         {
             anim.SetFloat("AbsVelX", Mathf.Abs(10));
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(Player.transform.position.x, 
@@ -113,6 +113,23 @@ public class Enemy : MonoBehaviour
         if (other.tag == "Player")
         {
             follow = true;
+            anim.SetTrigger("teste");
+            sleping = false;
+        }
+    }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            sleping = true;
+        }
+    }
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            sleping = false;
         }
     }
 
