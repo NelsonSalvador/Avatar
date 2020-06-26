@@ -43,14 +43,14 @@ public class CameraSwitch : MonoBehaviour
         {
             Camera1.transform.position = Vector3.MoveTowards(Camera1.transform.position, lastPos, (speed * Time.deltaTime));
             MainCamera.transform.position = Vector3.MoveTowards(Camera1.transform.position, lastPos, speed * Time.deltaTime);
+            if ((Camera1.transform.position == lastPos) && (reverse == true))
+            {
+                Camera1.SetActive(false);
+                MainCamera.SetActive(true);
+                p.canMove = true;
+            }
         }
-        if ((Camera1.transform.position == lastPos) && (reverse == true))
-        {
-
-            Camera1.SetActive(false);
-            MainCamera.SetActive(true);
-            p.canMove = true;
-        }
+        
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

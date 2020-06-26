@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class RespawnUI : MonoBehaviour
 {
     public GameObject Player;
+    public GameObject Text;
 
     Checkpoint checkpoint;
     UImanager uImanager;
@@ -23,6 +24,7 @@ public class RespawnUI : MonoBehaviour
         checkpoint = FindObjectOfType<Checkpoint>();
         Player.transform.position = checkpoint.playerPos;
         gameObject.SetActive(false);
+        Text.SetActive(false);
 
     }
     public void QuitGame()
