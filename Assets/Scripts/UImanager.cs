@@ -19,7 +19,7 @@ public class UImanager : MonoBehaviour
     public Image[] killingMeter;
 
     TextMeshProUGUI TextMesh;
-    int imgDel = 2;
+    public int imgDel = 2;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +31,9 @@ public class UImanager : MonoBehaviour
     void Update()
     {
         healthBar.fillAmount = playerHp.hp / 100;
+        if (playerHp.hp <= 1.0f)
+            imgDel = 2;
+
         if (meter == true)
         {
             killingMeter[imgDel].enabled = false;
@@ -43,6 +46,7 @@ public class UImanager : MonoBehaviour
                 Text.SetActive(true);
                 TextMesh.text = "You Killed To Many WildLife !!!";
                 Player.SetActive(false);
+                imgDel = 2;
             }
         }
         

@@ -5,9 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class RespawnUI : MonoBehaviour
 {
+    public GameObject Player;
+
+    Checkpoint checkpoint;
+    UImanager uImanager;
     public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        uImanager = FindObjectOfType<UImanager>();
+        Player.GetComponent<Hp>().hp = 100;
+        uImanager.killingMeter[0].enabled = true;
+        uImanager.killingMeter[1].enabled = true;
+        uImanager.killingMeter[2].enabled = true;
+        uImanager.imgDel = 2;
+
+        Player.SetActive(true);
+
+        checkpoint = FindObjectOfType<Checkpoint>();
+        Player.transform.position = checkpoint.playerPos;
+        gameObject.SetActive(false);
+
     }
     public void QuitGame()
     {

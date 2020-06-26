@@ -116,7 +116,6 @@ public class Player : MonoBehaviour
         {
             if (rb.gravityScale < 10.0f)
                 rb.gravityScale += 0.2f;
-            Debug.Log("Entrou");
         }
         else
         {

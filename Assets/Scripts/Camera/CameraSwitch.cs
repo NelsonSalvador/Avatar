@@ -16,6 +16,8 @@ public class CameraSwitch : MonoBehaviour
 
     Player p;
 
+    Vector3 lastPos;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +28,7 @@ public class CameraSwitch : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if ((reverse == false) && (Camera1.active == true))
         {
@@ -39,9 +41,10 @@ public class CameraSwitch : MonoBehaviour
         }
         else if ((reverse == true) && (Camera1.active == true))
         {
-            Camera1.transform.position = Vector3.MoveTowards(Camera1.transform.position, MainCamera.transform.position, (speed * Time.deltaTime) * 4);
+            Camera1.transform.position = Vector3.MoveTowards(Camera1.transform.position, lastPos, (speed * Time.deltaTime));
+            MainCamera.transform.position = Vector3.MoveTowards(Camera1.transform.position, lastPos, speed * Time.deltaTime);
         }
-        if ((Camera1.transform.position == MainCamera.transform.position) && (reverse == true))
+        if ((Camera1.transform.position == lastPos) && (reverse == true))
         {
 
             Camera1.SetActive(false);
@@ -53,13 +56,14 @@ public class CameraSwitch : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Player player = other.GetComponent<Player>();
+            //Player player = other.GetComponent<Player>();
 
             if (count == false)
             {
                 if (lockPos == true)
                 {
-                    player.canMove = false;
+                    p.canMove = false;
+                    lastPos = MainCamera.transform.position;
                 }
 
                 reverse = false;
@@ -80,7 +84,10 @@ public class CameraSwitch : MonoBehaviour
         {
             reverse = true;
             if (lockPos == false)
+            {
+                lastPos = MainCamera.transform.position;
                 MainCamera.transform.position = Camera1.transform.position;
+            }
         }
     }
 }
