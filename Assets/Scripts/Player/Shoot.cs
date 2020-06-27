@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class Shoot : MonoBehaviour
 {
@@ -8,7 +11,14 @@ public class Shoot : MonoBehaviour
     public GameObject bulletPrefab;
     public int poisonShots = 0;
 
+    public Image NormalArrow;
+    public Image PoisonArrow;
+
+    public TextMeshProUGUI poisonArrowsText;
+
     Animator anim;
+
+    bool poison = false;
 
     public bool fire = true;
     // Start is called before the first frame update
@@ -26,6 +36,18 @@ public class Shoot : MonoBehaviour
         {
             shoot();
         }
+        if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+        {
+            poison = true;
+            PoisonArrow.color = Color.black;
+            NormalArrow.color = Color.clear;
+        }
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+        {
+            poison = false;
+            PoisonArrow.color = Color.clear;
+            NormalArrow.color = Color.black;
+        }
     }
 
     IEnumerator timer(float time)
@@ -38,7 +60,23 @@ public class Shoot : MonoBehaviour
     {
         anim.SetTrigger("Atack");
         FindObjectOfType<AudioManager>().Play("Shoot");
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        if (poison == true && poisonShots >= 1)
+        {
+            poisonShots -= 1;
+            poisonArrowsText.text = (poisonShots) + "x";
+            bulletPrefab.GetComponent<Arrow>().poisonArrow = true;
+            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        }
+        else if (poison == true && poisonShots == 0)
+        {
+
+        }
+        else
+        {            
+            bulletPrefab.GetComponent<Arrow>().poisonArrow = false;
+            Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        }
+        
         fire = false;
         StartCoroutine(timer(0.5f));
     }

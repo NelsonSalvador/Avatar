@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour
     Animator anim;
 
 
-    bool follow = false;
+    public bool follow = false;
     float AISpeed;
     Rigidbody2D rb;
 
@@ -100,40 +100,5 @@ public class Enemy : MonoBehaviour
             anim.SetFloat("AbsVelX", Mathf.Abs(currentVelocity.x));
         }
 
-    }
-
-
-
-    public void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag == "Player")
-        {
-            follow = true;
-            anim.SetTrigger("teste");
-            sleping = false;
-        }
-    }
-
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            sleping = true;
-        }
-    }
-    public void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            sleping = false;
-        }
-    }
-
-    public void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.tag == "Player")
-        {
-            follow = false;
-        }
     }
 }

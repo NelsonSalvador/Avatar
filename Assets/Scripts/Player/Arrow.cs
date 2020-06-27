@@ -10,6 +10,8 @@ public class Arrow : MonoBehaviour
     public Rigidbody2D rb;
     public float dmg = 50.0f;
 
+    public bool poisonArrow = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,9 +27,16 @@ public class Arrow : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Enemy enemy = collision.gameObject.GetComponent<Enemy>();
-            enemy.TakeDamge(dmg);
-            StartCoroutine(destroy(0.1f));
+            if (poisonArrow == false)
+            {
+                Enemy enemy = collision.gameObject.GetComponent<Enemy>();
+                enemy.TakeDamge(dmg);
+                StartCoroutine(destroy(0.1f));
+            }
+            else
+            {
+                Debug.Log("SLEEP!!!");
+            }
         }
         else
             StartCoroutine(destroy(0.5f));

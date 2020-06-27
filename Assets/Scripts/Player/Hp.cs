@@ -82,7 +82,7 @@ public class Hp : MonoBehaviour
         }
     }
 
-
+    /*
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
@@ -91,5 +91,5 @@ public class Hp : MonoBehaviour
             text.text = "-10";
             text.enabled = true;
         }
-    }
+    }*/
 }
