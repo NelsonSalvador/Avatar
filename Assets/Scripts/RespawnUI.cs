@@ -25,6 +25,7 @@ public class RespawnUI : MonoBehaviour
         Player.transform.position = checkpoint.playerPos;
         gameObject.SetActive(false);
         Text.SetActive(false);
+        Player.GetComponent<Shoot>().fire = true;
 
     }
     public void QuitGame()

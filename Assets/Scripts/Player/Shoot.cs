@@ -6,22 +6,25 @@ public class Shoot : MonoBehaviour
 {
     public Transform firePoint;
     public GameObject bulletPrefab;
+    public int poisonShots = 0;
 
     Animator anim;
 
-    bool fire = true;
+    public bool fire = true;
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+        fire = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         if(Input.GetButtonDown("Fire1") && fire == true)
         {
-            shoot();            
+            shoot();
         }
     }
 
