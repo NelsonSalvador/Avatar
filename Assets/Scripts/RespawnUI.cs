@@ -7,6 +7,7 @@ public class RespawnUI : MonoBehaviour
 {
     public GameObject Player;
     public GameObject Text;
+    public GameObject[] Enemys;
 
     Checkpoint checkpoint;
     UImanager uImanager;
@@ -21,6 +22,11 @@ public class RespawnUI : MonoBehaviour
 
         Player.SetActive(true);
 
+        foreach (GameObject x in Enemys)
+        {
+            x.SetActive(true);
+        }
+
         checkpoint = FindObjectOfType<Checkpoint>();
         Player.transform.position = checkpoint.playerPos;
         gameObject.SetActive(false);
@@ -28,8 +34,12 @@ public class RespawnUI : MonoBehaviour
         Player.GetComponent<Shoot>().fire = true;
 
     }
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     public void QuitGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene("MainMenu");
     }
 }

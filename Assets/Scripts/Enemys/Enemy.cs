@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] LayerMask layer;
 
     public Transform groundCheck;
+    public Transform wallCheck;
     public LayerMask GroundLayers;
     public float Speed = 20;
 
@@ -33,7 +34,8 @@ public class Enemy : MonoBehaviour
 
         if (health <= 0)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
             ui.meter = true;
             FindObjectOfType<AudioManager>().Play("EnemyKill");
         }
@@ -53,13 +55,15 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         
-        Collider2D WallCollision = Physics2D.OverlapCircle(groundCheck.position, 1, GroundLayers);
+        Collider2D WallCollision = Physics2D.OverlapCircle(wallCheck.position, 1, GroundLayers);
+        Collider2D GroundCollision = Physics2D.OverlapCircle(groundCheck.position, 1, GroundLayers);
 
         bool oneWall = WallCollision != null;
+        bool oneGround = GroundCollision != null;
         
         Vector2 currentVelocity = rb.velocity;
 
-        if ((oneWall == true) && (follow == false))
+        if (((oneWall == true) && (follow == false) )||( (oneGround == false) && (follow == false)) )
         {
             AISpeed = -AISpeed;
         }
@@ -80,7 +84,7 @@ public class Enemy : MonoBehaviour
             
         }
 
-        if (follow == true && oneWall == false && sleping == false)
+        if (follow == true && oneWall == false && sleping == false && oneGround == true)
         {
             anim.SetFloat("AbsVelX", Mathf.Abs(10));
             transform.position = Vector3.MoveTowards(transform.position, new Vector3(Player.transform.position.x, 
