@@ -8,8 +8,8 @@ public class PoisonPlant : MonoBehaviour
     Animator anim;
     public GameObject pickedUpText;
     public TextMeshProUGUI poisonArrowsText;
-    bool pickedUp = false;
-    int counter = 0;
+    public bool pickedUp = false;
+    public int counter = 0;
     int nPoisonArrows;
     public GameObject player;
     // Start is called before the first frame update
@@ -26,10 +26,18 @@ public class PoisonPlant : MonoBehaviour
         if (pickedUp == true && counter == 0)
         {
             nPoisonArrows = player.GetComponent<Shoot>().poisonShots;
-            anim.SetTrigger("Colected");
             poisonArrowsText.text = (nPoisonArrows + 1) + "x";
             player.GetComponent<Shoot>().poisonShots = player.GetComponent<Shoot>().poisonShots + 1;
             counter = 1;
+        }
+
+        if (pickedUp == true)
+        {
+            anim.SetBool("Colected", true);
+        }
+        else
+        {
+            anim.SetBool("Colected", false);
         }
     }
 
