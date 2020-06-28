@@ -2,13 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System.Security.Cryptography;
+
 
 public class MainMenuCamera : MonoBehaviour
 {

@@ -19,6 +19,7 @@ public class Shoot : MonoBehaviour
     Animator anim;
 
     bool poison = false;
+    private int first;
 
     public bool fire = true;
     // Start is called before the first frame update
@@ -26,12 +27,19 @@ public class Shoot : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         fire = true;
+        first = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (first == 0)
+        {
+            poison = false;
+            PoisonArrow.enabled = false;
+            NormalArrow.enabled = true;
+            first++;
+        }
         if(Input.GetButtonDown("Fire1") && fire == true)
         {
             shoot();
@@ -39,14 +47,14 @@ public class Shoot : MonoBehaviour
         if (Input.GetAxis("Mouse ScrollWheel") < 0f)
         {
             poison = true;
-            PoisonArrow.color = Color.black;
-            NormalArrow.color = Color.clear;
+            PoisonArrow.enabled = true;
+            NormalArrow.enabled = false;
         }
         if (Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
             poison = false;
-            PoisonArrow.color = Color.clear;
-            NormalArrow.color = Color.black;
+            PoisonArrow.enabled = false;
+            NormalArrow.enabled = true;
         }
     }
 
